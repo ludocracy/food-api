@@ -47,7 +47,13 @@ const foodArray = [
     }
   },
 ]
-db.Food.remove({}, function(err, foods) {
+db.Food.remove({}, function(err, removedFoods) {
+  let foods = foodArray.map(foodData => {
+    let food = new db.Food(foodData);
+    food.save();
+    return food
+  });
+
   db.MealTracker.remove({}, function(err, trackers) {
     db.MealEntry.remove({}, function(err, entries) {
       let tracker = new db.MealTracker({
@@ -55,12 +61,10 @@ db.Food.remove({}, function(err, foods) {
         });
 
       for(let i=0; i < 5; i++) {
-        let mealDay = new db.MealDay({ date: `2001-01-0${i}`});
+        let mealDay = new db.MealDay({ date: `2001-01-0${i+1}`});
         for(let j=0; j < 3; j++) {
           let mealEntry = new db.MealEntry({});
-          foodArray.forEach(foodData => {
-            let food = new db.Food(foodData);
-            food.save();
+          foods.forEach(food => {
             let course = new db.Course({
               numServings: 1,
               food: food
