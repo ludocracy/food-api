@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+const MealEntry = require('./meal-entry');
 
 const mealDaySchema = new mongoose.Schema({
-  date: Date,
-  isCheatDay: Boolean,
+  date: { type: String, required: true },
+  isCheatDay: { type: Boolean, default: false },
   meals: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'MealEntry'
@@ -14,7 +15,7 @@ const trackerSchema = new mongoose.Schema({
   mealDays: [mealDaySchema]
 });
 
-exports = {
+module.exports = {
   MealTracker: mongoose.model('MealTracker', trackerSchema),
   MealDay: mongoose.model('MealDay', mealDaySchema)
 };

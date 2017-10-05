@@ -10,10 +10,10 @@ const courseSchema = new mongoose.Schema({
 });
 
 const entrySchema = new mongoose.Schema({
-  foods: [{ type: courseSchema, required: true }]
+  courses: [{ type: courseSchema, required: true }]
 });
 
-exports = {
+module.exports = {
   MealEntry: mongoose.model('MealEntry', entrySchema),
   Course: mongoose.model('Course', courseSchema)
 }

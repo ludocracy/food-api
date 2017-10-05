@@ -11,7 +11,6 @@ const nutritionSchema = new mongoose.Schema({
 
 const foodSchema = new mongoose.Schema({
   name: String,
-  type: String,
   imageUrl: String,
   tags: [String],
   servingSize: Number,
@@ -19,7 +18,7 @@ const foodSchema = new mongoose.Schema({
   nutrition: nutritionSchema
 });
 
-exports = {
+module.exports = {
   Food: mongoose.model('Food', foodSchema),
   Nutrition: mongoose.model('Nutrition', nutritionSchema)
 }
